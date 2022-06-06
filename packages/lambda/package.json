@@ -1,0 +1,17 @@
+{
+  "name": "@gvh-library-mono/lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "zip -r function.zip . && aws s3api put-object --bucket gvh-library-lambda-beta --key function.zip --body function.zip"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blurhash": "^1.1.4",
+    "node-fetch": "^2.6.7",
+    "sharp": "^0.29.2"
+  }
+}

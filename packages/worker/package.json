@@ -1,0 +1,22 @@
+{
+    "name": "@gvh-library-mono/worker",
+    "private": true,
+    "version": "1.0.0",
+    "description": "package for creating workers templates",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+    "author": "root <kimyoungjin1001@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.38.0",
+        "@sagi.io/workers-jwt": "^0.0.20",
+        "aws4fetch": "^1.0.13",
+        "axios": "^0.21.4",
+        "blurhash": "^1.1.4",
+        "itty-router": "^2.1.9",
+        "serverless-cloudflare-workers": "^1.2.0",
+        "sharp": "^0.29.2"
+    }
+}
