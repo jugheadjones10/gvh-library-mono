@@ -5,8 +5,9 @@
     "description": "package for creating workers templates",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    }
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "wrangler dev --ip 100.106.241.95"
+    },
     "author": "root <kimyoungjin1001@gmail.com>",
     "license": "ISC",
     "dependencies": {

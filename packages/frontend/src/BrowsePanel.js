@@ -37,15 +37,7 @@ const heights = [
   100, 150, 230, 110, 150, 130, 100, 120, 90, 100, 150, 90, 190, 110,
 ];
 
-const dataEndpoint = process.env.NODE_ENV === "development"
-    ? process.env.REACT_APP_DEV_API
-    : process.env.REACT_APP_PRODUCTION_API;
-
-const submissionEndpoint = process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_DEV_FORM_SUBMISSION_API
-      : process.env.REACT_APP_PRODUCTION_FORM_SUBMISSION_API
-
-const fetcher = path => fetch(dataEndpoint + path).then(res => res.json()) 
+const fetcher = path => fetch(process.env.REACT_APP_DATA_FETCH_ENDPOINT + path).then(res => res.json()) 
 
 
 function BrowserPanel({ value, index, bookBasket, setBookBasket, setValue, imageWidth }) {
@@ -81,7 +73,7 @@ function BrowserPanel({ value, index, bookBasket, setBookBasket, setValue, image
   }, [value, search, series, language, category]);
 
   useEffect(() => {
-    const socket = socketIOClient(submissionEndpoint);
+    const socket = socketIOClient(process.env.REACT_APP_FORM_SUBMISSION_ENDPOINT);
     socket.on("update", data => {
       console.log("Updated")
       mutate('/initial-books')

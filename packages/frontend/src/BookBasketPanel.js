@@ -20,10 +20,6 @@ import Backdrop from "@mui/material/Backdrop";
 import { useTheme } from "@mui/material/styles";
 import BrowsePanelBook from "./BrowsePanelBook";
 
-const submissionEndpoint = process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_DEV_FORM_SUBMISSION_API
-      : process.env.REACT_APP_PRODUCTION_FORM_SUBMISSION_API
-
 function BookBasketPanel({ value, index, bookBasket, setBookBasket, imageWidth }) {
   function onBookRemoved(book) {
     setBookBasket((x) => [...x.filter((y) => y.number !== book.number)]);
@@ -38,7 +34,7 @@ function BookBasketPanel({ value, index, bookBasket, setBookBasket, imageWidth }
     onSubmit: (values, { resetForm }) => {
       values["books"] = bookBasket;
 
-      fetch(submissionEndpoint + "/submit-books", {
+      fetch(process.env.REACT_APP_FORM_SUBMISSION_ENDPOINT + "/submit-books", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
