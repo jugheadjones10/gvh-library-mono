@@ -12,16 +12,17 @@ if (port == null || port == "") {
   port = 8888;
 }
 
+const allowedOrigins = ["https://gvh-library.netlify.app", "http://100.106.241.95:3000"]
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.SOCKETIO_CLIENT_URL,
+    origin: allowedOrigins,
     methods: ["GET", "POST"]
   }
 });
 
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,7 +32,7 @@ app.get("/io", async function(req, res){
   res.send("done")
 })
 
-app.post("/submit-books", async function (req, res) {
+app.post("/submit-books", cors({ origin: allowedOrigins }), async function (req, res) {
 
   const doc = new GoogleSpreadsheet("1nNDQKZe-uoZFLNqhw2vhGosfCYmNWAdjYIbZEyEO770")
   //The line break replace logic was recommended by the google-spreadsheet library here: https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account
@@ -81,6 +82,6 @@ app.post("/submit-books", async function (req, res) {
     ])
 
   res.send(true);
-});
+})
 
 server.listen(port, () => console.log(`Example app listening on port ${port}!`));
