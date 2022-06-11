@@ -6,7 +6,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "wrangler dev --ip 100.106.241.95"
+        "start": "wrangler dev --ip 100.106.241.95 --port 8787"
     },
     "author": "root <kimyoungjin1001@gmail.com>",
     "license": "ISC",

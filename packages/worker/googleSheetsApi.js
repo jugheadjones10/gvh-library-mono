@@ -16,19 +16,14 @@ export default async function getRowsFromSheet({limit, offset}){
     aud: GOOGLE_TOKEN_AUD
   })
   const headers = { Authorization: `Bearer ${token}`}
-
   const apiEndpoint = "https://sheets.googleapis.com/v4/spreadsheets/" + GOOGLE_SPREADSHEET_ID + "/values/" + GOOGLE_WORKSHEET_TITLE + "!" + range
 
-
   const response = await fetch(apiEndpoint, { headers })
-  const {values} = await response.json()
+  let { values } = await response.json()
 
-  //getRowsFromSheet is guaranteed to return at least a non-null empty array
-  let result = []
-  if(values){
-    var filtered = values.filter(x => x.length > 0)
-    result = filtered ? filtered : []
-  }
+  // What happens if the Google sheet contains "whitespace"? Will the values variable be an array of length 0 or null?
+  // Any empty cells will be returned as an empty string
+  if(!values) throw new Error("Google sheet response is null")
 
-  return result
+  return values
 }
