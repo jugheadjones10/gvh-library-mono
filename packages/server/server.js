@@ -12,9 +12,16 @@ if (port == null || port == "") {
   port = 8888;
 }
 
+const allowedOrigins = ["https://gvh-library.netlify.app", "http://100.106.241.95:3000"]
+
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"]
+  }
+});
 
 app.use(cors())
 app.use(express.json());
