@@ -23,9 +23,10 @@ router.get("/initial-books", async function(req, res) {
   rows = mergeData(rows, masterKey);
 
   const headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+"Access-Control-Allow-Origin": "*"
   }
-  if(req.allowedOrigin) headers["Access-Control-Allow-Origin"] = req.allowedOrigin
+  // if(req.allowedOrigin) headers["Access-Control-Allow-Origin"] = req.allowedOrigin
   return new Response(JSON.stringify(rows), { headers })
 })
 
@@ -38,9 +39,10 @@ router.get("/books", async function(req, res) {
   rows = mergeData(rows, masterKey);
 
   const headers = {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+"Access-Control-Allow-Origin": "*"
   }
-  if(req.allowedOrigin) headers["Access-Control-Allow-Origin"] = req.allowedOrigin
+  // if(req.allowedOrigin) headers["Access-Control-Allow-Origin"] = req.allowedOrigin
   return new Response(JSON.stringify(rows), { headers })
 })
 

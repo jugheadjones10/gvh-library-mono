@@ -23,6 +23,7 @@ const io = new Server(server, {
   }
 });
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -32,7 +33,7 @@ app.get("/io", async function(req, res){
   res.send("done")
 })
 
-app.post("/submit-books", cors({ origin: allowedOrigins }), async function (req, res) {
+app.post("/submit-books", async function (req, res) {
 
   const doc = new GoogleSpreadsheet("1nNDQKZe-uoZFLNqhw2vhGosfCYmNWAdjYIbZEyEO770")
   //The line break replace logic was recommended by the google-spreadsheet library here: https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication?id=service-account
