@@ -14,7 +14,7 @@
     "start": "concurrently 'npm start -w packages/worker' 'npm start -w packages/server' 'npm start -w packages/frontend'"
   },
   "engines" : { 
-    "node" : "16.15.1"
+    "node" : "16.16.0"
   },
   "author": "",
   "license": "ISC"
