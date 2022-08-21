@@ -20,7 +20,7 @@ function BrowsePanelBook({
   imageWidth,
   bookBasketOnRemove,
   isChoosing,
-  isChosen,
+ isChosen,
   onBookClicked,
 }) {
   const bookStack = (
@@ -44,7 +44,7 @@ function BrowsePanelBook({
           bgcolor: "text.secondary",
         }}
       >
-        {book.title}
+        {`${book.title} (${book.number})`}
       </Box>
    </Stack>
   )

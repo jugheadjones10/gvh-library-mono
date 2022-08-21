@@ -5,13 +5,17 @@ import getRowsFromSheet from "./googleSheetsApi"
 const router = Router();
 const initialBooksCount = 30;
 
-const allowedOrigins = ["https://gvh-library.netlify.app", "http://100.106.241.95:3000"]
+const allowedOrigins = ["https://gvh-library.netlify.app", "http://100.106.241.95:3000", "http://158.247.193.21:3000"]
 router.get("*", function(req){
   const origin = req.headers.get("Origin")
   console.log("Origin: ", origin)
   if(allowedOrigins.includes(origin)){
     req.allowedOrigin = origin 
   }
+})
+
+router.get("/", () => {
+  return new Response("Hello, world! This is the root page of your Worker template.")
 })
 
 router.get("/initial-books", async function(req, res) {
@@ -42,12 +46,14 @@ router.get("/books", async function(req, res) {
     "Content-Type": "application/json",
 "Access-Control-Allow-Origin": "*"
   }
+
   // if(req.allowedOrigin) headers["Access-Control-Allow-Origin"] = req.allowedOrigin
   return new Response(JSON.stringify(rows), { headers })
 })
 
 // Merges book data from Google sheet with book image metadata stored in Cloudflare KV.
 function mergeData(rows, masterKey) {
+  console.log(rows)
   return rows
   // Filtering books that have a non-empty number and title, and have "1" set as its inventory value.
     .filter(x => x[0] && x[1] && x[5] === "1")

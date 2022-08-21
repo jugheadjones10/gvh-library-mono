@@ -12,6 +12,7 @@ import React, {
 
 import useIntersectionObserver from "@react-hook/intersection-observer";
 import FlexSearch from "flexsearch";
+import { useMiniSearch } from 'react-minisearch'
 import Masonry from "react-masonry-css";
 import useSWR, {useSWRConfig} from 'swr'
 import socketIOClient from "socket.io-client";
@@ -38,7 +39,6 @@ const heights = [
 ];
 
 const fetcher = path => fetch(process.env.REACT_APP_DATA_FETCH_ENDPOINT + path).then(res => res.json()) 
-
 
 function BrowserPanel({ value, index, bookBasket, setBookBasket, setValue, imageWidth }) {
 
@@ -305,27 +305,48 @@ function useBooks () {
 }
 
 function useSearch(items, searchTerm) {
-  const [flexIndex, setFlexIndex] = useState(null);
+  // const [flexIndex, setFlexIndex] = useState(null);
   const [results, setResults] = useState([]);
 
+  const { search, searchResults, addAll, removeAll } = useMiniSearch(items, {
+      fields: ["title", "number"], 
+      storeFields: ["title", "number", "category", "series", "language", "imageurl", "width", "height", "blurhash"], 
+      idField: "number", 
+      searchOptions: {
+        fuzzy: 0.2,
+        prefix: true
+    }
+  })
+
   useEffect(() => {
-    const index = new FlexSearch.Index({
-      preset: "match",
-      tokenize: "forward",
-    });
-    items.forEach(({ title }, i) => {
-      index.add(i, title);
-    });
-    setFlexIndex(index);
+    // I feel like there's a better way to do this...
+    removeAll()
+    addAll(items)
+
+    // const index = new FlexSearch.Index({
+    //   preset: "match",
+    //   tokenize: "forward",
+    // });
+    // items.forEach(({ title }, i) => {
+    //   index.add(i, title);
+    // });
+    // setFlexIndex(index);
   }, [items]);
 
-  useEffect(() => {
-    if (flexIndex !== null) {
-      setResults(flexIndex.search(searchTerm).map((index) => items[index]));
-    }
-  }, [searchTerm, items, flexIndex]);
 
-  return searchTerm.length === 0 ? items : results;
+
+  useEffect(() => {
+    search(searchTerm)
+  }, [searchTerm])
+
+  // useEffect(() => {
+  //   if (flexIndex !== null) {
+  //     setResults(flexIndex.search(searchTerm).map((index) => items[index]));
+  //   }
+  // }, [searchTerm, items, flexIndex]);
+
+  // return searchTerm.length === 0 ? items : results;
+  return searchTerm.length === 0 ? items : searchResults;
 }
 
 export default BrowserPanel;

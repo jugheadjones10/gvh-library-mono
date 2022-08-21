@@ -29,7 +29,7 @@ function FilterFormControl({ value, setValue, options, label }) {
           None
         </MenuItem>
         {options.map((option) => {
-          return <MenuItem value={option}>{option}</MenuItem>;
+          return <MenuItem key={option} value={option}>{option}</MenuItem>;
         })}
       </Select>
     </FormControl>
@@ -55,7 +55,7 @@ function FilterFormControl({ value, setValue, options, label }) {
       >
         <AntOption value="">None</AntOption>
         {options.map((option) => {
-          return <AntOption value={option}>{option}</AntOption>;
+          return <AntOption key={option} value={option}>{option}</AntOption>;
         })}
       </AntSelect>
     </Space>

@@ -2,6 +2,7 @@ import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt'
 
 export default async function getRowsFromSheet({limit, offset}){
 
+  // try{
   let range
   if(limit){
     range = "A2" + ":" + "H" + (1 + limit)
@@ -25,5 +26,8 @@ export default async function getRowsFromSheet({limit, offset}){
   // Any empty cells will be returned as an empty string
   if(!values) throw new Error("Google sheet response is null")
 
+  // }catch(e){
+  //   console.error(e)
+  // }
   return values
 }

@@ -12,7 +12,7 @@ if (port == null || port == "") {
   port = 8888;
 }
 
-const allowedOrigins = ["https://gvh-library.netlify.app", "http://100.106.241.95:3000"]
+const allowedOrigins = ["https://gvh-library.netlify.app", "http://100.106.241.95:3000", "http://158.247.193.21:3000"]
 
 const app = express();
 const server = http.createServer(app);
@@ -59,7 +59,7 @@ app.post("/submit-books", async function (req, res) {
     return {
       rowNumber: row._rowNumber,
       bookNumber: row.Number 
-    }
+   }
   })
 
   await Promise.all(requestedBookNumbers.map(async (bookNum) => {
